@@ -55,11 +55,39 @@ def search_holder(name):
     try:
         # Connects to DB
         conn = sqlite3.connect(DB_NAME)
+        cur = conn.cursor()
 
-        # Query to search for the requested holder by name
-        sql_query = 'SELECT * FROM {} WHERE {} = {}'.format(RECORDS_TABLE, NAME, name)
+        # Query to search for the requested holder by name using a parametrized statement
+        sql_query = 'SELECT * FROM {} WHERE {} = ?'.format(RECORDS_TABLE, NAME)
 
-        return sql_query
+        sql_values = name
+
+        return cur.execute(sql_query, sql_values)
+
+    except sqlite3.Error as sqle:
+        print('An error has occurred')
+        print(sqle)
+
+        # Closes connections
+    finally:
+        conn.close()
+
+
+def update_catches(name, catches):
+    try:
+        # Connects to DB
+        conn = sqlite3.connect(DB_NAME)
+        cur = conn.cursor()
+
+        # Uses a update query to update the catches of a record holder
+        sql_template = 'UPDATE {} SET {} = ? WHERE {} = ?'.format(RECORDS_TABLE, NUMBER_OF_CATCHES, NAME)
+
+        sql_values = (catches, name)
+
+        cur.execute(sql_template, sql_values)
+
+        # returns true if the catches were updated
+        return cur.rowcount > 0
 
     except sqlite3.Error as sqle:
         print('An error has occurred')
