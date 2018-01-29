@@ -1,4 +1,14 @@
+from Simple_SQL_App import db
 
+def main():
+    db.setup()
+
+    quit = 'q'
+    choice = None
+
+    while choice is not quit:
+        choice = display_menu()
+        get_choice(choice)
 
 # Displays a menu for the user to choose an option to do
 def display_menu():
@@ -17,3 +27,15 @@ def display_menu():
         choice = int(input("Enter your selection between 1 and 4 or Q to quit: \n"))
 
     return choice
+
+def get_choice():
+    if choice == 1:
+        show_record_holders():
+    elif choice == 2:
+        add_record_holder():
+    elif choice == 3:
+        delete_record_holder():
+    else choice == 4:
+        quit():
+    else:
+        print("Enter a valid selection please")
