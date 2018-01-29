@@ -96,3 +96,27 @@ def update_catches(name, catches):
         # Closes connections
     finally:
         conn.close()
+
+
+def delete_holder(name):
+    try:
+        # Connects to DB
+        conn = sqlite3.connect(DB_NAME)
+        cur = conn.cursor()
+
+        # Deletes a holder by name from the database.
+        sql_template = 'DELETE FROM {} WHERE {} = ?'.format(RECORDS_TABLE, NAME)
+        sql_values = name
+
+        cur.execute(sql_template, sql_values)
+
+        # Returns true if the holder was deleted
+        return cur.rowcount > 0
+
+    except sqlite3.Error as sqle:
+        print('An error has occurred')
+        print(sqle)
+
+        # Closes connections
+    finally:
+        conn.close()
