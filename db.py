@@ -2,7 +2,6 @@ from Simple_SQL_App.holder import Holder
 import sqlite3
 import logging
 
-
 DB_NAME = 'Juggling_Records.db'
 RECORDS_TABLE = 'Records'
 NAME = 'Chainsaw Juggling Record Holder'

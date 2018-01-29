@@ -82,6 +82,7 @@ def delete_record_holder():
     else:
         print('Record was not deleted. Please double check the spelling of the name.')
 
+
 # Updates a record holder
 def update_record_holder():
     name = input("Enter name: \n")
@@ -92,6 +93,7 @@ def update_record_holder():
         print ('Record holder ' + str(name) + ' was updated with ' + count + ' catches.')
     else:
         print('Record was not updated. Double check the spelling of the name of the record holder you wish to update')
+
 
 # Searches for a record holder
 def search_record_holder():

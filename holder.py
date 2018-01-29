@@ -1,5 +1,4 @@
 class Holder:
-
     CATCHES = 0
 
     # Constructor for creating a record holder
