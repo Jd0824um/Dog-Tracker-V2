@@ -71,6 +71,7 @@ def show_record_holders():
     for holder in holders:
         print(holder)
 
+
 # Deletes a record holder by calling the database and deleting by name
 def delete_record_holder():
     name = input("Enter name: \n")
