@@ -1,4 +1,4 @@
-class Holders:
+class Holder:
 
     # Constructor for creating a record holder
     def __init__(self, name, country, catches):

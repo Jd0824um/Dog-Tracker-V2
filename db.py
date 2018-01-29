@@ -1,4 +1,7 @@
 import sqlite3
+import logging
+from Simple_SQL_App.holder import Holder
+
 
 DB_NAME = 'Juggling_Records.db'
 RECORDS_TABLE = 'Records'
@@ -20,15 +23,15 @@ def setup():
         conn.commit()
 
     except sqlite3.Error as sqle:
+        logging.info(sqle.with_traceback)
         print('An error has occurred')
-        print(sqle)
 
     # Closes connections
     finally:
         conn.close()
 
 
-def add_holder():
+def add_holder(Holder):
     try:
         # Connects to DB
         conn = sqlite3.connect(DB_NAME)
@@ -38,13 +41,15 @@ def add_holder():
         sql_template = 'INSERT INTO {} ({}, {}, {}) VALUES (?, ?, ?))'\
             .format(RECORDS_TABLE, NAME, COUNTRY, NUMBER_OF_CATCHES)
 
-        sql_values = (holder.name, holder.country, holder.catches)
+        sql_values = (Holder.name, Holder.country, Holder.catches)
 
         cur.execute(sql_template, sql_values)
 
+        logging.info("Added record holder " + Holder.name)
+
     except sqlite3.Error as sqle:
         print('An error has occurred')
-        print(sqle)
+        logging.info(sqle.with_traceback)
 
         # Closes connections
     finally:
@@ -62,11 +67,13 @@ def search_holder(name):
 
         sql_values = name
 
+        logging.info("Searched for " + name)
+
         return cur.execute(sql_query, sql_values)
 
     except sqlite3.Error as sqle:
         print('An error has occurred')
-        print(sqle)
+        logging.info(sqle.with_traceback)
 
         # Closes connections
     finally:
@@ -86,12 +93,14 @@ def update_catches(name, catches):
 
         cur.execute(sql_template, sql_values)
 
+        logging.info("Catches were updated for " + name + " to " + catches)
+
         # returns true if the catches were updated
         return cur.rowcount > 0
 
     except sqlite3.Error as sqle:
         print('An error has occurred')
-        print(sqle)
+        logging.info(sqle.with_traceback)
 
         # Closes connections
     finally:
@@ -110,12 +119,14 @@ def delete_holder(name):
 
         cur.execute(sql_template, sql_values)
 
+        logging.info("Deleted " + name)
+
         # Returns true if the holder was deleted
         return cur.rowcount > 0
 
     except sqlite3.Error as sqle:
         print('An error has occurred')
-        print(sqle)
+        logging.info(sqle.with_traceback)
 
         # Closes connections
     finally:
