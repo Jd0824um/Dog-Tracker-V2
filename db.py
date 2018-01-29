@@ -1,6 +1,5 @@
 import sqlite3
 import logging
-from Simple_SQL_App.holder import Holder
 
 
 DB_NAME = 'Juggling_Records.db'
