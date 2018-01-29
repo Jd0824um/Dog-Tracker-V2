@@ -1,3 +1,4 @@
+from Simple_SQL_App.holder import Holder
 import sqlite3
 import logging
 
@@ -19,7 +20,6 @@ def setup():
             .format(RECORDS_TABLE, NAME, COUNTRY, NUMBER_OF_CATCHES)
 
         conn.execute(sql_statement)
-        conn.commit()
 
     except sqlite3.Error as sqle:
         logging.info(sqle.with_traceback)
@@ -106,6 +106,25 @@ def update_catches(name, catches):
         conn.close()
 
 
+# Shows all the record holders within the database
+def show_holders():
+    holders = []
+
+    sql_statement = 'SELECT * FROM {}'.format(RECORDS_TABLE)
+
+    if sql_statement:
+        conn = sqlite3.connect(DB_NAME)
+        cur = conn.cursor()
+        rows = cur.execute(sql_statement)
+
+        for row in rows:
+            holder = Holder(row[NAME], row[COUNTRY], row[NUMBER_OF_CATCHES])
+            holders.append(holder)
+
+    return holders
+
+
+# Deletes a record holder from the database
 def delete_holder(name):
     try:
         # Connects to DB

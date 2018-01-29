@@ -1,7 +1,9 @@
 class Holder:
 
+    CATCHES = 0
+
     # Constructor for creating a record holder
-    def __init__(self, name, country, catches):
+    def __init__(self, name, country, catches=CATCHES):
         self.name = name
         self.country = country
         self.catches = catches
